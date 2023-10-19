@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GateScript : MonoBehaviour
 {
-    [SerializeField] private PlayerMovementScript player;
+    [SerializeField] private GameManager gameManager;
     [SerializeField] bool openOnCollision;
-    [SerializeField] private GameObject canvas;
+    //private float currentKeyCount;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +20,11 @@ public class GateScript : MonoBehaviour
         {
             OpenGate();
         }
+        //currentKeyCount = GameObject.FindGameObjectsWithTag("Key").Length;
+        //if (player.keyCount != currentKeyCount)
+        //{
+
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,9 +34,9 @@ public class GateScript : MonoBehaviour
 
     void OpenGate()
     {
-        if(player.keyCount >= 1)
+        if (gameManager.collectedKeyCount == gameManager.initialKeyCount)
         {
-            canvas.SetActive(true);
+            
             this.gameObject.SetActive(false);
         }
     }

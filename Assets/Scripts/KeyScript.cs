@@ -4,29 +4,26 @@ using UnityEngine;
 
 public class KeyScript : MonoBehaviour
 {
-    [SerializeField] private PlayerMovementScript player;
+    [SerializeField] private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (player == null)
-        {
-            player = GetComponent<PlayerMovementScript>();
-        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            player.keyCount++;
-            Debug.Log(player.keyCount);
+            //gameManager.keyCount++;
+            Debug.Log("key count" + gameManager.keyCount);
             this.gameObject.SetActive(false);
         }
     }

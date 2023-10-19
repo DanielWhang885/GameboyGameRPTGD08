@@ -6,7 +6,7 @@ public class KnockbackScript : MonoBehaviour
 {
     [SerializeField] private float thrust;
     [SerializeField] private float knocktime;
-
+    [SerializeField] private PlayerMovementScript player;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +26,7 @@ public class KnockbackScript : MonoBehaviour
             Rigidbody2D Enemy = other.GetComponent<Rigidbody2D>();
             if (Enemy != null)
             {
+                player.canMove = false;
                 Enemy.isKinematic = false;
                 Vector2 difference = Enemy.transform.position - transform.position;
                 difference = difference.normalized * thrust;
@@ -41,6 +42,7 @@ public class KnockbackScript : MonoBehaviour
         {
             yield return new WaitForSeconds(knocktime);
             enemy.velocity = Vector2.zero;
+            player.canMove = true;
             enemy.isKinematic=true;
         }
     }
