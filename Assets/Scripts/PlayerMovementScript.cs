@@ -6,14 +6,13 @@ using UnityEngine;
 public class PlayerMovementScript : MonoBehaviour
 {
     [SerializeField] private float speed;
-<<<<<<< Updated upstream
-    public int health = 12;
-=======
     [SerializeField] private GameObject attackHitbox;
     [SerializeField] private float attackUptime;
     public int health;
     public int maxHealth;
->>>>>>> Stashed changes
+    //if there are multiple keys. Registers twice though, not sure how to fix that so it's
+    //probably best to just have one
+    public float keyCount;
     private Rigidbody2D playerRigidBody; 
     private Vector3 change;
     
@@ -21,11 +20,8 @@ public class PlayerMovementScript : MonoBehaviour
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
-<<<<<<< Updated upstream
-=======
         attackHitbox.gameObject.SetActive(false);
         //attackActive = false;
->>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -38,8 +34,6 @@ public class PlayerMovementScript : MonoBehaviour
         {
             MoveCharacter();
         }
-<<<<<<< Updated upstream
-=======
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Attack();
@@ -48,15 +42,12 @@ public class PlayerMovementScript : MonoBehaviour
         {
             Die();
         }
->>>>>>> Stashed changes
     }
 
     void MoveCharacter()
     {
             playerRigidBody.MovePosition(transform.position + change * speed * Time.deltaTime);
     }
-<<<<<<< Updated upstream
-=======
 
    void Attack()
     {
@@ -81,5 +72,4 @@ public class PlayerMovementScript : MonoBehaviour
         Debug.Log("You died");
         gameObject.SetActive(false);
     }
->>>>>>> Stashed changes
 }
