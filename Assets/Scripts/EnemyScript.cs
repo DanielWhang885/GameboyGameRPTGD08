@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
@@ -21,5 +22,18 @@ public class EnemyScript : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Attack"))
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        this.gameObject.SetActive(false);
     }
 }

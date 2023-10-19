@@ -1,19 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private GameObject attackHitbox;
+<<<<<<< Updated upstream
     public int health = 12;
+=======
+    [SerializeField] private GameObject attackHitbox;
+    [SerializeField] private float attackUptime;
+    public int health;
+    public int maxHealth;
+>>>>>>> Stashed changes
     private Rigidbody2D playerRigidBody; 
-    private Vector3 change; 
+    private Vector3 change;
+    
     // Start is called before the first frame update
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
+<<<<<<< Updated upstream
+=======
         attackHitbox.gameObject.SetActive(false);
+        //attackActive = false;
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -26,19 +38,48 @@ public class PlayerMovementScript : MonoBehaviour
         {
             MoveCharacter();
         }
-       if (Input.GetKeyDown(KeyCode.Space))
+<<<<<<< Updated upstream
+=======
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            attackHitbox.gameObject.SetActive(true);
+            Attack();
         }
+        if(health <= 0) 
+        {
+            Die();
+        }
+>>>>>>> Stashed changes
     }
 
     void MoveCharacter()
     {
             playerRigidBody.MovePosition(transform.position + change * speed * Time.deltaTime);
     }
+<<<<<<< Updated upstream
+=======
 
-    void Attack()
+   void Attack()
     {
-
+        attackHitbox.gameObject.SetActive(true);
+        Invoke("AttackDisable", attackUptime);
     }
+    //probably not the optimal way
+    private void AttackDisable()
+    {
+        attackHitbox.gameObject.SetActive(false );
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            health = health - 1;
+        }
+    }
+    private void Die()
+    {
+        //temporary
+        Debug.Log("You died");
+        gameObject.SetActive(false);
+    }
+>>>>>>> Stashed changes
 }
