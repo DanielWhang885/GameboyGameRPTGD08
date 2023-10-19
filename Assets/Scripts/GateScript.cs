@@ -6,6 +6,7 @@ public class GateScript : MonoBehaviour
 {
     [SerializeField] private PlayerMovementScript player;
     [SerializeField] bool openOnCollision;
+    [SerializeField] private GameObject canvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,7 @@ public class GateScript : MonoBehaviour
     {
         if(player.keyCount >= 1)
         {
+            canvas.SetActive(true);
             this.gameObject.SetActive(false);
         }
     }

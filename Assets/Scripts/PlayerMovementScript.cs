@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class PlayerMovementScript : MonoBehaviour
     public float keyCount;
     private Rigidbody2D playerRigidBody; 
     private Vector3 change;
+    private float moveLimiter = 0.7f;
+
+    public GameObject canvas;
+    public Text restartText;
     
     // Start is called before the first frame update
     void Start()
@@ -30,10 +35,7 @@ public class PlayerMovementScript : MonoBehaviour
         change = Vector3.zero;
         change.x = Input.GetAxisRaw("Horizontal");
         change.y = Input.GetAxisRaw("Vertical");
-        if (change != Vector3.zero)
-        {
-            MoveCharacter();
-        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Attack();
@@ -44,9 +46,15 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
 
-    void MoveCharacter()
+    void FixedUpdate()
     {
-            playerRigidBody.MovePosition(transform.position + change * speed * Time.deltaTime);
+        if (change.x != 0 && change.y != 0)
+        {
+            change.x *= moveLimiter;
+            change.y *= moveLimiter;
+        }
+
+        playerRigidBody.velocity = new Vector2(change.x * speed, change.y * speed);
     }
 
    void Attack()
@@ -59,7 +67,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         attackHitbox.gameObject.SetActive(false );
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
@@ -70,6 +78,8 @@ public class PlayerMovementScript : MonoBehaviour
     {
         //temporary
         Debug.Log("You died");
-        gameObject.SetActive(false);
+        restartText.text = "YOU LOSE";
+        canvas.SetActive(true);
+        
     }
 }
