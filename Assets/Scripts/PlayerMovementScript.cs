@@ -14,8 +14,11 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI healthText;
     public int health;
     public int maxHealth;
+
     public bool canMove;
     private bool canAttack = true;
+    public bool invincible = false;
+
     //if there are multiple keys. Registers twice though, not sure how to fix that so it's
     //probably best to just have one
 
@@ -82,9 +85,12 @@ public class PlayerMovementScript : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy") && invincible == false)
         {
+            invincible = true;
             health = health - 1;
+            new WaitForSeconds(2);
+            invincible = false;
         }
     }
     private void Die()

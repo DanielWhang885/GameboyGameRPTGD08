@@ -21,7 +21,7 @@ public class KnockbackScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     { 
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && player.invincible == false)
         {
             Rigidbody2D Enemy = other.GetComponent<Rigidbody2D>();
             if (Enemy != null)
