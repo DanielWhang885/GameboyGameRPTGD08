@@ -6,14 +6,21 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager _instance;
+
     [SerializeField] TextMeshProUGUI keyCountText;
     public float collectedKeyCount, initialKeyCount, keyCount;
+
+    private void Awake()
+    {
+        _instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         keyCount = GameObject.FindGameObjectsWithTag("Key").Length;
         initialKeyCount = GameObject.FindGameObjectsWithTag("Key").Length;
-        Debug.Log(initialKeyCount);
         Screen.SetResolution(1200, 1080, true);
     }
 

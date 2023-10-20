@@ -73,9 +73,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8862745, g: 0.8745098, b: 0.69411767, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -172,7 +172,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &780401009
 MonoBehaviour:
@@ -186,10 +186,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b8714bf5ac1974e9f2b779ae3e21c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3
   attackHitbox: {fileID: 1230952125}
   attackUptime: 0.5
-  health: 12
+  healthPanel: {fileID: 0}
+  healthText: {fileID: 0}
+  health: 10
+  maxHealth: 10
+  deadText: Press "Enter" to try again
+  canMove: 1
+  invincible: 0
+  dead: 0
+  levelEndSceen: {fileID: 0}
 --- !u!50 &780401007
 Rigidbody2D:
   serializedVersion: 4
@@ -309,7 +317,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 784fdaae2d2ce1546a6ea9fd7414571f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

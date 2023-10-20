@@ -22,6 +22,8 @@ public class LevelExitScript : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            if (SceneManager.GetActiveScene().buildIndex == 2)
+                CanvasManager._instance.SetEndScreenText("That's the end of the game, hope you enjoyed!");
             canvas.SetActive(true);
         }
     }

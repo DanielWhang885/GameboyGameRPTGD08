@@ -17,7 +17,7 @@ public class StarScreenScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadScene("Demo Scene");
+            SceneManager.LoadScene(1);
         }
     }
 }

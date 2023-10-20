@@ -7,6 +7,8 @@ using TMPro;
 
 public class PlayerMovementScript : MonoBehaviour
 {
+    public static PlayerMovementScript _instance;
+
     [SerializeField] private float speed;
     [SerializeField] private GameObject attackHitbox;
     [SerializeField] private float attackUptime;
@@ -15,9 +17,13 @@ public class PlayerMovementScript : MonoBehaviour
     public int health;
     public int maxHealth;
 
+    public string deadText;
+
     public bool canMove;
     private bool canAttack = true;
     public bool invincible = false;
+
+    [HideInInspector] public bool dead;
 
     //if there are multiple keys. Registers twice though, not sure how to fix that so it's
     //probably best to just have one
@@ -27,8 +33,12 @@ public class PlayerMovementScript : MonoBehaviour
     private float moveLimiter = 0.7f;
 
     public GameObject levelEndSceen;
-    public TextMeshProUGUI restartText;
-    
+
+    private void Awake()
+    {
+        _instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +52,9 @@ public class PlayerMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dead)
+            return;
+
         change = Vector3.zero;
         change.x = Input.GetAxisRaw("Horizontal");
         change.y = Input.GetAxisRaw("Vertical");
@@ -59,6 +72,9 @@ public class PlayerMovementScript : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (dead)
+            return;
+
         if (canMove == true)
         {
             if (change.x != 0 && change.y != 0)
@@ -85,6 +101,9 @@ public class PlayerMovementScript : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (dead)
+            return;
+
         if (collision.CompareTag("Enemy") && invincible == false)
         {
             invincible = true;
@@ -95,11 +114,12 @@ public class PlayerMovementScript : MonoBehaviour
     }
     private void Die()
     {
-        //temporary
         Debug.Log("You died");
-        restartText.text = "YOU LOSE";
+        dead = true;
+        playerRigidBody.velocity = Vector2.zero;
+        CanvasManager._instance.SetEndScreenTitle("YOU DIED!!!");
+        CanvasManager._instance.SetEndScreenText(deadText);
         healthPanel.SetActive(false);
         levelEndSceen.SetActive(true);
-        
     }
 }

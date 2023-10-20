@@ -5,20 +5,22 @@ using UnityEngine;
 public class CamTrigger : MonoBehaviour
 {
     public Vector3 newCamPos, newPlayerPos;
-    private CamController camController;
+    private GameObject cam;
+    public int keysAmount = 1;
     // Start is called before the first frame update
     void Start()
     {
-        camController = Camera.main.GetComponent<CamController>();
+        cam = Camera.main.gameObject;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-      if(collision.gameObject.tag == "Player")
+      if(collision.gameObject.tag == "Player" && GameManager._instance.collectedKeyCount >= keysAmount)
         {
-            camController.minPos += newCamPos;
-            camController.maxPos += newCamPos;
+            cam.transform.position = newCamPos;
+            cam.transform.position = newCamPos;
             collision.transform.position += newPlayerPos;
+            Destroy(gameObject);
         }
     }
 }

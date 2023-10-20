@@ -10,6 +10,8 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float closestDistance;
     [SerializeField] private float maxDistance;
+    [SerializeField] private GameObject triggerBeforeAttacking;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,9 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (triggerBeforeAttacking != null)
+            return;
+
         if (Vector3.Distance(target.position, transform.position) <= maxDistance)
         {
             if (Vector3.Distance(target.position, transform.position) > closestDistance)
@@ -45,6 +50,7 @@ public class EnemyScript : MonoBehaviour
 
     void Die()
     {
+        PlayerMovementScript._instance.canMove = true;
         this.gameObject.SetActive(false);
     }
 }

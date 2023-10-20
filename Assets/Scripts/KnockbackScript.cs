@@ -6,11 +6,11 @@ public class KnockbackScript : MonoBehaviour
 {
     [SerializeField] private float thrust;
     [SerializeField] private float knocktime;
-    [SerializeField] private PlayerMovementScript player;
+    private PlayerMovementScript player;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = PlayerMovementScript._instance;
     }
 
     // Update is called once per frame
@@ -27,11 +27,11 @@ public class KnockbackScript : MonoBehaviour
             if (Enemy != null)
             {
                 player.canMove = false;
-                Enemy.isKinematic = false;
                 Vector2 difference = Enemy.transform.position - transform.position;
                 difference = difference.normalized * thrust;
                 Enemy.AddForce(difference, ForceMode2D.Impulse);
-                StartCoroutine(KnockCo(Enemy));
+                if (gameObject.activeSelf)
+                    StartCoroutine(KnockCo(Enemy));
             }
         }
     }
@@ -42,8 +42,12 @@ public class KnockbackScript : MonoBehaviour
         {
             yield return new WaitForSeconds(knocktime);
             enemy.velocity = Vector2.zero;
-            player.canMove = true;
-            enemy.isKinematic=true;
+            StopKnockback();
         }
+    }
+
+    public void StopKnockback()
+    {
+        player.canMove = true;
     }
 }
